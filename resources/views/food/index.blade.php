@@ -11,8 +11,8 @@
             <div class="card">
                 <div class="card-header">All Category
                     <span class="float-right">
-                        <a href="{{route('category.create')}}">
-                            <button class="btn btn-outline-secoundary">Add Category</button>
+                        <a href="{{route('food.create')}}">
+                            <button class="btn btn-outline-secoundary">Add food</button>
                         </a>
                     </span>
                 </div>
@@ -24,20 +24,26 @@
                     <table class="table">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col">Image</th>
                                 <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">category</th>
                                 <th scope="col">Edit</th>
                                 <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if(count($categories)>0)
-                            @foreach ($categories as $key=>$category)
+                            @if(count($foods)>0)
+                            @foreach ($foods as $key=>$food)
                             <tr>
-                                <th scope="row">{{$key+1}}</th>
-                                <td>{{$category->name}}</td>
+                                <td><img src="{{asset('images')}}/{{$food->image}}" width="100px"></td>
+                                <td>{{$food->name}}</td>
+                                <td>{{$food->description}}</td>
+                                <td>${{$food->price}}</td>
+                                <td>{{$food->category->name}}</td>
                                 <td>
-                                    <a href="{{route('category.edit',[$category->id])}}">
+                                    <a href="{{route('food.edit',[$food->id])}}">
                                         <button class="btn btn-outline-success">Edit</button></a>
                                 </td>
                                 <td>
@@ -47,16 +53,16 @@
 
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#exampleModal{{$category->id}}">
+                                        data-target="#exampleModal{{$food->id}}">
                                         Delete
                                     </button>
 
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal{{$category->id}}" tabindex="-1"
-                                        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="exampleModal{{$food->id}}" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <form action="{{route('category.destroy',[$category->id])}}" method="POST">
+                                            <form action="{{route('food.destroy',[$food->id])}}" method="POST">
                                                 @csrf
                                                 {{method_field('DELETE')}}
                                                 <div class="modal-content">
@@ -88,6 +94,8 @@
                             @endif
                         </tbody>
                     </table>
+
+                    {{ $foods->links() }}
                 </div>
             </div>
         </div>

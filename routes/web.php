@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['registar' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('category', 'CategoryController');
+Route::resource('category', 'CategoryController')->middleware('auth');
+Route::resource('food', 'FoodController')->middleware('auth');
