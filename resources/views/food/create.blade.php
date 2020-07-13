@@ -11,11 +11,7 @@
             <form action="{{route('food.store')}}" method="POST" enctype="multipart/form-data">@csrf
                 <div class="card">
                     <div class="card-header">Add new food
-                        <span class="float-right">
-                            <a href="{{route('food.create')}}">
-                                <button class="btn btn-outline-secoundary">Add food</button>
-                            </a>
-                        </span>
+                        
                     </div>
 
                     <div class="card-body">

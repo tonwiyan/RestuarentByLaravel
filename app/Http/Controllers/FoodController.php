@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Food;
+use App\Category;
 
 class FoodController extends Controller
 {
@@ -14,7 +15,7 @@ class FoodController extends Controller
      */
     public function index()
     {
-        $foods = Food::latest()->paginate(1);
+        $foods = Food::latest()->paginate(10);
         return view('food.index', compact('foods'));
     }
 
@@ -124,5 +125,16 @@ class FoodController extends Controller
         $food = Food::find($id);
         $food->delete();
         return redirect()->route('food.index')->with('message', 'Food deleted');
+    }
+
+    public function listFood()
+    {
+        $categories = Category::with('food')->get();
+        return view('food.list', compact('categories'));
+    }
+    public function view($id)
+    {
+        $food = Food::find($id);
+        return view('food.detail', compact('food'));
     }
 }
